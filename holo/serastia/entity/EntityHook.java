@@ -42,7 +42,7 @@ public class EntityHook extends EntityThrowable
 
 		        if (var1 == null || var1.getDistanceToEntity(this) > 64)
 		        {
-		            return;
+		        	this.setDead();
 		        }
 		        else if (this.getDistanceToEntity(var1) < 1 || var1.isSneaking())
 		        {
@@ -72,18 +72,8 @@ public class EntityHook extends EntityThrowable
 				this.motionX = 0;
 				this.motionY = 0;
 				this.motionZ = 0;
-
-				System.out.println("Hit!");
 			}
 		}
 	}
-
-//    /**
-//     * Gets the amount of gravity to apply to the thrown entity with each tick.
-//     */
-//    protected float getGravityVelocity()
-//    {
-//        return this.hasCollided ? 0 : 0.03F;
-//    }
 
 }

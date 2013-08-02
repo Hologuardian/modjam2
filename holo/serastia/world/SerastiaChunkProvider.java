@@ -58,6 +58,7 @@ public class SerastiaChunkProvider implements IChunkProvider
     private double[] stoneNoise = new double[256];
     private MapGenBase caveGenerator = new HighCaveGen();
     private WorldGenerator largeTrees = new MapGenLargeTree();
+    private WorldGenerator mediumTrees = new MapGenMediumTree();
     private WorldGenerator waterTrees = new MapGenWaterTree(false);
     private WorldGenerator kelp = new MapGenKelp();
 
@@ -525,6 +526,14 @@ public class SerastiaChunkProvider implements IChunkProvider
         	k = z + rand.nextInt(16) + 8;
         	j = worldObj.getTopSolidOrLiquidBlock(i, k);
         	this.largeTrees.generate(worldObj, rand, i, j - 5, k);
+        }
+        
+        if (rand.nextInt(150) == 0)
+        {
+        	i = x + rand.nextInt(16) + 8;
+        	k = z + rand.nextInt(16) + 8;
+        	j = worldObj.getTopSolidOrLiquidBlock(i, k);
+        	this.mediumTrees.generate(worldObj, rand, i, j - 5, k);
         }
         
         for(int n = 0; n < 15; ++n)
