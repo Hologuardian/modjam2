@@ -1,14 +1,6 @@
 package holo.serastia.world;
 
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
-import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
-
-import holo.serastia.world.feature.HighCaveGen;
-import holo.serastia.world.feature.MapGenLargeTree;
+import holo.serastia.world.feature.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +8,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MathHelper;
@@ -26,11 +19,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
-import net.minecraft.world.gen.feature.MapGenScatteredFeature;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraft.world.gen.structure.MapGenMineshaft;
-import net.minecraft.world.gen.structure.MapGenStronghold;
-import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
@@ -69,6 +58,8 @@ public class SerastiaChunkProvider implements IChunkProvider
     private double[] stoneNoise = new double[256];
     private MapGenBase caveGenerator = new HighCaveGen();
     private WorldGenerator largeTrees = new MapGenLargeTree();
+    private WorldGenerator waterTrees = new MapGenWaterTree(false);
+    private WorldGenerator kelp = new MapGenKelp();
 
     /** The biomes that are used to generate the chunk */
     private BiomeGenBase[] biomesForGeneration;
@@ -530,14 +521,37 @@ public class SerastiaChunkProvider implements IChunkProvider
         int k;
         if (rand.nextInt(150) == 0)
         {
-        	i = x + rand.nextInt(16);
-        	k = z + rand.nextInt(16);
-        	j = 0;
-        	while(!(worldObj.getBlockId(i, j, k) == Block.waterStill.blockID))
+        	i = x + rand.nextInt(16) + 8;
+        	k = z + rand.nextInt(16) + 8;
+        	j = worldObj.getTopSolidOrLiquidBlock(i, k);
+        	this.largeTrees.generate(worldObj, rand, i, j - 5, k);
+        }
+        
+        for(int n = 0; n < 15; ++n)
+        {
+        	i = x + this.rand.nextInt(16) + 8;
+        	k = z + rand.nextInt(16) + 8;
+        	j = worldObj.getTopSolidOrLiquidBlock(i, k);
+        	if (j < 70)
         	{
-        		++j;
+            	worldObj.setBlock(i, j, k, Block.brick.blockID, 0, 3);
         	}
-        	this.largeTrees.generate(worldObj, rand, i, j, k);
+        }
+        
+        if (rand.nextInt(2) == 0)
+        {
+        	i = x + this.rand.nextInt(16) + 8;
+        	k = z + rand.nextInt(16) + 8;
+        	j = worldObj.getTopSolidOrLiquidBlock(i, k);
+        	this.waterTrees.generate(worldObj, rand, i, j, k);
+        }
+        
+        for(int n = 0; n < 3; ++n)
+        {
+        	i = x + this.rand.nextInt(16) + 8;
+        	k = z + rand.nextInt(16) + 8;
+        	j = worldObj.getTopSolidOrLiquidBlock(i, k);
+        	this.kelp.generate(worldObj, rand, i, j, k);
         }
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(par1IChunkProvider, worldObj, rand, par2, par3, flag));
 
