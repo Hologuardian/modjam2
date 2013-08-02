@@ -9,6 +9,7 @@ public class ConfigHelper
 	public static boolean keepLoadedSerastia;
 	
 	public static int dimensionTravelerID;
+	public static int grappleHookID;
 	
 	public static void init(Configuration config)
 	{
@@ -25,6 +26,7 @@ public class ConfigHelper
 	{
 		int itemID = 5500;
 		dimensionTravelerID = config.getItem("Dimension Traveler", ++itemID).getInt();
+		grappleHookID = config.getItem("Grapple Hook", ++itemID).getInt();
 	}
 	
 	public static void initBlocks(Configuration config)

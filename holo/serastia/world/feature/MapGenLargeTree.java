@@ -25,17 +25,17 @@ public class MapGenLargeTree extends WorldGenerator
 		int height = random.nextInt(35) + 120;
 		int radius = random.nextInt(2) + 7;
 		int j;
-		for(j = y; j < y + height; j++)
+		for(j = y; j <= y + height; j++)
 		{
-			for(int i = x - radius; i < x + radius; i++)
+			for(int i = x - radius; i <= x + radius; i++)
 			{
-				for(int k = z - radius; k < z + radius; k++)
+				for(int k = z - radius; k <= z + radius; k++)
 				{
 					int xDist = i - x;
 					int zDist = k - z;
-					if (xDist * xDist + zDist * zDist < radius * radius)
+					if (xDist * xDist + zDist * zDist <= radius * radius + random.nextInt(4))
 					{
-						world.setBlock(i, j, k, Block.wood.blockID, 3, 0);
+						world.setBlock(i, j, k, Block.wood.blockID, 3, 3);
 					}
 				}
 			}
@@ -87,23 +87,23 @@ public class MapGenLargeTree extends WorldGenerator
 		
 		for (n = y; n >= y - 4; --n)
 		{
-			world.setBlock(x, n, z, Block.planks.blockID, 0, 3);
+			world.setBlock(x, n, z, Block.planks.blockID, 3, 3);
 		}
 		n -= size;
 		++n;
 		
-		for (int i = x - size; i < x + size; ++i)
+		for (int i = x - size; i <= x + size; ++i)
 		{
-			for (int j = n - size; j < n + size; ++j)
+			for (int j = n - size; j <= n + size; ++j)
 			{
-				for (int k = z - size; k < z + size; ++k)
+				for (int k = z - size; k <= z + size; ++k)
 				{
 					int xd = i - x;
 					int yd = j - n;
 					int zd = k - z;
 					if (xd * xd + yd * yd + zd * zd <= size * size && xd * xd + yd * yd + zd * zd >= (size - 1) * (size - 1) )
 					{
-						world.setBlock(i, j, k, Block.planks.blockID, 0, 3);
+						world.setBlock(i, j, k, Block.planks.blockID, 3, 3);
 					}
 					else if (xd * xd + yd * yd + zd * zd < (size - 1) * (size - 1))
 					{
@@ -121,7 +121,7 @@ public class MapGenLargeTree extends WorldGenerator
 				                System.err.println("Failed to fetch mob spawner entity at (" + i + ", " + j + ", " + k + ")");
 				            }
 						}
-						else if (i == x && j < n && k ==z)
+						else if (i == x && j <= n && k ==z)
 						{
 							world.setBlock(i, j, k, Block.planks.blockID, 0, 3);
 						}
@@ -137,18 +137,18 @@ public class MapGenLargeTree extends WorldGenerator
 
 	public void genSphere(World world, Random rand, int x, int y, int z, int size)
 	{
-		for (int i = x - size; i < x + size; ++i)
+		for (int i = x - size; i <= x + size; ++i)
 		{
-			for (int j = y - size; j < y + size; ++j)
+			for (int j = y - size; j <= y + size; ++j)
 			{
-				for (int k = z - size; k < z + size; ++k)
+				for (int k = z - size; k <= z + size; ++k)
 				{
 					int xd = i - x;
 					int yd = j - y;
 					int zd = k - z;
-					if (xd * xd + zd * zd + yd * yd < size * size)
+					if (xd * xd + zd * zd + yd * yd <= size * size)
 					{
-						world.setBlock(i, j, k, Block.wood.blockID, 3, 0);
+						world.setBlock(i, j, k, Block.wood.blockID, 3, 3);
 					}
 				}
 			}
@@ -166,11 +166,11 @@ public class MapGenLargeTree extends WorldGenerator
 					int xd = i - x;
 					int yd = j - y;
 					int zd = k - z;
-					if (xd * xd + zd * zd + yd * yd < size * size)
+					if (xd * xd + zd * zd + yd * yd <= size * size)
 					{
 						if (world.getBlockId(i, j, k) != Block.wood.blockID)
 						{
-							world.setBlock(i, j, k, Block.glass.blockID, 3, 0);
+							world.setBlock(i, j, k, Block.leaves.blockID, 4, 3);
 						}
 					}
 				}
