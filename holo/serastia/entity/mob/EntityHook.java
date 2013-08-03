@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class EntityHook extends EntityThrowable
 {
-
+	public EntityLivingBase thrower = null;
 	public boolean hasCollided = false;
 	public EntityHook(World par1World) 
 	{
@@ -20,12 +20,50 @@ public class EntityHook extends EntityThrowable
 	public EntityHook(World par1World, EntityPlayer player)
 	{
 		super(par1World, player);
+		thrower = player;
+	}
+
+	public void onUpdate()
+	{
+		super.onUpdate();
+		EntityPlayer player = this.worldObj.getClosestVulnerablePlayerToEntity(this, 64.0D);
+
+		if (player == null || player.getDistanceToEntity(this) > 64 || player.isSneaking())
+		{
+			this.setDead();
+		}
+		thrower = player;
+
+		if (this.hasCollided)
+		{
+			if (player == null || this.getDistanceToEntity(player) > 64 || player.isSneaking() || this.posY < 5)
+			{
+				this.setDead();
+			}
+			double xDif = this.posX - player.posX;
+			double yDif = this.posY - player.posY + 1.8;
+			double zDif = this.posZ - player.posZ;
+
+			if (Math.abs(xDif) < 0.3)
+				xDif = 0;
+			if (Math.abs(yDif) < 0.3)
+				yDif = 0;
+			if (Math.abs(zDif) < 0.3)
+				zDif = 0;
+
+			double xV = Math.signum(xDif) * 0.10;
+			double yV = Math.signum(yDif) * 0.15;
+			double zV = Math.signum(zDif) * 0.10;
+
+			player.fallDistance = 0;
+			player.addVelocity(xV, yV, zV);
+		}
 	}
 
 	/**
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
-	protected void onImpact(MovingObjectPosition pos)
+	 protected void onImpact(MovingObjectPosition pos)
 	{
 		if (pos.entityHit == null)
 		{
@@ -37,37 +75,6 @@ public class EntityHook extends EntityThrowable
 				{
 					this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
 				}
-				
-				EntityPlayer var1 = this.worldObj.getClosestVulnerablePlayerToEntity(this, 64.0D);
-
-		        if (var1 == null || var1.getDistanceToEntity(this) > 64)
-		        {
-		        	this.setDead();
-		        }
-		        else if (this.getDistanceToEntity(var1) < 1 || var1.isSneaking())
-		        {
-		        	this.setDead();
-		        }
-		        else
-		        {
-		        	double xDif =this.posX - var1.posX;
-		        	double yDif = this.posY - var1.posY + 1.8;
-		        	double zDif = this.posZ - var1.posZ;
-		        	
-		        	if (Math.abs(xDif) < 0.3)
-		        		xDif = 0;
-		        	if (Math.abs(yDif) < 0.3)
-		        		yDif = 0;
-		        	if (Math.abs(zDif) < 0.3)
-		        		zDif = 0;
-		        	
-		        	double xV = Math.signum(xDif) * 0.10;
-		        	double yV = Math.signum(yDif) * 0.15;
-		        	double zV = Math.signum(zDif) * 0.10;
-		        	
-		        	var1.fallDistance = 0;
-		            var1.addVelocity(xV, yV, zV);
-		        }
 
 				this.motionX = 0;
 				this.motionY = 0;
@@ -75,5 +82,13 @@ public class EntityHook extends EntityThrowable
 			}
 		}
 	}
+
+	 /**
+	  * Gets the amount of gravity to apply to the thrown entity with each tick.
+	  */
+	 protected float getGravityVelocity()
+	 {
+		 return this.hasCollided ? 0 : 0.03F;
+	 }
 
 }

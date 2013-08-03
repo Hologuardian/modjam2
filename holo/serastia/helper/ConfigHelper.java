@@ -11,6 +11,9 @@ public class ConfigHelper
 	public static int dimensionTravelerID;
 	public static int grappleHookID;
 	
+
+	public static int kelpBlockID;
+	
 	public static void init(Configuration config)
 	{
 		serastiaDimensionID = config.get("Dimension", "Dimension ID", 5).getInt();
@@ -31,7 +34,8 @@ public class ConfigHelper
 	
 	public static void initBlocks(Configuration config)
 	{
-		
+		int blockID = 3200;
+		kelpBlockID = config.getBlock("Kelp", ++blockID).getInt();
 	}
 	
 	public static void initEntities(Configuration config)
