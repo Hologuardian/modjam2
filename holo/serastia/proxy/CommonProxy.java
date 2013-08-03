@@ -12,15 +12,15 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class CommonProxy 
 {
-	public static void init()
+	public void init()
 	{
 		ItemHelper.init();
 		DimensionHelper.init();
 		EntityHelper.init();
 	}
 	
-
-    
+	public void initClient(){}
+	
     public void configRegistry(FMLPreInitializationEvent event) 
     {
         File file = new File(event.getModConfigurationDirectory(), "Serastia.cfg");

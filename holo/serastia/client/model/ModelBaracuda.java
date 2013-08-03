@@ -1,12 +1,11 @@
 package holo.serastia.client.model;
 
+import holo.serastia.entity.mob.EntityBaracuda;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityMob;
 
-public class ModelFish extends ModelBase
+public class ModelBaracuda extends ModelBase
 {
   //fields
     ModelRenderer Body;
@@ -27,7 +26,7 @@ public class ModelFish extends ModelBase
     ModelRenderer Spine1;
     ModelRenderer Tail;
   
-  public ModelFish()
+  public ModelBaracuda()
   {
     textureWidth = 64;
     textureHeight = 32;
@@ -168,10 +167,10 @@ public class ModelFish extends ModelBase
   
   public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
   {
-	  if (entity instanceof EntityMob)
+	  if (entity instanceof EntityBaracuda)
 	  {
-		  EntityMob ent = (EntityMob)entity;
-		  if (ent.getAttackTarget() != null)
+		  EntityBaracuda ent = (EntityBaracuda)entity;
+		  if (ent.target != null)
 		  {
 		      setRotation(Jaw, -0.30F, 0F, 0F);
 		  }

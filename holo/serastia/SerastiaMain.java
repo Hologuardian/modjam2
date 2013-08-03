@@ -1,7 +1,7 @@
 package holo.serastia;
 
 import holo.serastia.proxy.CommonProxy;
-import holo.serastia.util.Strings;
+import holo.serastia.util.Utils;
 import net.minecraft.command.CommandHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -13,16 +13,16 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid = Strings.MAIN_MOD_ID, version = Strings.VERSION, name = Strings.MAIN_MOD_ID)
+@Mod(modid = Utils.MAIN_MOD_ID, version = Utils.VERSION, name = Utils.MAIN_MOD_ID)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class SerastiaMain
 {   
-    @Instance(Strings.MAIN_MOD_ID)
+    @Instance(Utils.MAIN_MOD_ID)
     public static SerastiaMain instance;
     
     @SidedProxy
-    (clientSide = Strings.clientProxy, 
-        serverSide = Strings.commonProxy)
+    (clientSide = Utils.clientProxy, 
+        serverSide = Utils.commonProxy)
     public static CommonProxy proxy;
 
     @EventHandler
@@ -31,12 +31,12 @@ public class SerastiaMain
         instance = this;
         this.proxy.configRegistry(event);
         this.proxy.init();
+    	this.proxy.initClient();
     }
     
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	
     }
     
     @EventHandler
