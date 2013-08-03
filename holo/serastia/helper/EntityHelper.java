@@ -1,7 +1,7 @@
 package holo.serastia.helper;
 
 import holo.serastia.SerastiaMain;
-import holo.serastia.entity.EntityHook;
+import holo.serastia.entity.mob.EntityHook;
 import holo.serastia.util.Strings;
 import cpw.mods.fml.common.registry.EntityRegistry;
 

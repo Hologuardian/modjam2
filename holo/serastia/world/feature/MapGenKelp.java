@@ -15,7 +15,7 @@ public class MapGenKelp extends WorldGenerator
 		int height = random.nextInt(5) + 5;
 		for(int i = y; i < y + height && i < 70; ++i)
 		{
-			world.setBlock(x, i, z, Block.bedrock.blockID);
+			world.setBlock(x, i, z, Block.bedrock.blockID, 0, 2);
 		}
 		return false;
 	}

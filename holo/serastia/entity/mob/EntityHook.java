@@ -1,4 +1,4 @@
-package holo.serastia.entity;
+package holo.serastia.entity.mob;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

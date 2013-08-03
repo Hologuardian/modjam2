@@ -1,6 +1,6 @@
 package holo.serastia.item;
 
-import holo.serastia.entity.EntityHook;
+import holo.serastia.entity.mob.EntityHook;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

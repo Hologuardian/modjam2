@@ -525,15 +525,23 @@ public class SerastiaChunkProvider implements IChunkProvider
         	i = x + rand.nextInt(16) + 8;
         	k = z + rand.nextInt(16) + 8;
         	j = worldObj.getTopSolidOrLiquidBlock(i, k);
-        	this.largeTrees.generate(worldObj, rand, i, j - 5, k);
+        	
+        	if (j < 70)
+        	{
+            	this.largeTrees.generate(worldObj, rand, i, j - 5, k);
+        	}
         }
         
-        if (rand.nextInt(150) == 0)
+        if (rand.nextInt(25) == 0)
         {
         	i = x + rand.nextInt(16) + 8;
         	k = z + rand.nextInt(16) + 8;
         	j = worldObj.getTopSolidOrLiquidBlock(i, k);
-        	this.mediumTrees.generate(worldObj, rand, i, j - 5, k);
+
+        	if (j < 70)
+        	{
+            	this.mediumTrees.generate(worldObj, rand, i, j - 5, k);
+        	}
         }
         
         for(int n = 0; n < 15; ++n)
@@ -552,7 +560,10 @@ public class SerastiaChunkProvider implements IChunkProvider
         	i = x + this.rand.nextInt(16) + 8;
         	k = z + rand.nextInt(16) + 8;
         	j = worldObj.getTopSolidOrLiquidBlock(i, k);
-        	this.waterTrees.generate(worldObj, rand, i, j, k);
+        	if (j < 70)
+        	{
+            	this.waterTrees.generate(worldObj, rand, i, j, k);
+        	}
         }
         
         for(int n = 0; n < 3; ++n)
@@ -560,7 +571,10 @@ public class SerastiaChunkProvider implements IChunkProvider
         	i = x + this.rand.nextInt(16) + 8;
         	k = z + rand.nextInt(16) + 8;
         	j = worldObj.getTopSolidOrLiquidBlock(i, k);
-        	this.kelp.generate(worldObj, rand, i, j, k);
+        	if (j < 70)
+        	{
+            	this.kelp.generate(worldObj, rand, i, j, k);
+        	}
         }
         MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(par1IChunkProvider, worldObj, rand, par2, par3, flag));
 

@@ -23,7 +23,7 @@ public class MapGenMediumTree extends WorldGenerator
 	public int genTrunk(World world, Random random, int x, int y, int z)
 	{
 		int height = random.nextInt(25) + 60;
-		int radius = random.nextInt(2) + 3;
+		int radius = 1;
 		int j;
 		for(j = y; j <= y + height; j++)
 		{
@@ -35,7 +35,7 @@ public class MapGenMediumTree extends WorldGenerator
 					int zDist = k - z;
 					if (xDist * xDist + zDist * zDist <= radius * radius + random.nextInt(4))
 					{
-						world.setBlock(i, j, k, Block.wood.blockID, 3, 3);
+						world.setBlock(i, j, k, Block.wood.blockID, 3, 2);
 					}
 				}
 			}
@@ -46,7 +46,7 @@ public class MapGenMediumTree extends WorldGenerator
 	
 	public void genCanopy(World world, Random random, int x, int y, int z)
 	{
-		for (int i = 0; i < 25; ++i)
+		for (int i = 0; i < 20; ++i)
 		{
 			genLargeBranches(world, random, x, y - random.nextInt(25), z);
 		}
@@ -88,7 +88,7 @@ public class MapGenMediumTree extends WorldGenerator
 					int zd = k - z;
 					if (xd * xd + zd * zd + yd * yd <= size * size)
 					{
-						world.setBlock(i, j, k, Block.wood.blockID, 3, 3);
+						world.setBlock(i, j, k, Block.wood.blockID, 3, 2);
 					}
 				}
 			}
@@ -106,11 +106,11 @@ public class MapGenMediumTree extends WorldGenerator
 					int xd = i - x;
 					int yd = j - y;
 					int zd = k - z;
-					if (xd * xd + zd * zd + yd * yd <= size * size)
+					if (xd * xd + zd * zd + yd * yd <= size * size - 1)
 					{
 						if (world.getBlockId(i, j, k) != Block.wood.blockID)
 						{
-							world.setBlock(i, j, k, Block.leaves.blockID, 4, 3);
+							world.setBlock(i, j, k, Block.leaves.blockID, 4, 2);
 						}
 					}
 				}
