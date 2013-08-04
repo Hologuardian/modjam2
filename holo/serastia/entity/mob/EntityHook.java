@@ -26,7 +26,7 @@ public class EntityHook extends EntityThrowable
 	public void onUpdate()
 	{
 		super.onUpdate();
-		EntityPlayer player = this.worldObj.getClosestVulnerablePlayerToEntity(this, 64.0D);
+		EntityPlayer player = this.worldObj.getClosestPlayerToEntity(this, 64.0D);
 
 		if (player == null || player.getDistanceToEntity(this) > 64 || player.isSneaking())
 		{
@@ -39,6 +39,7 @@ public class EntityHook extends EntityThrowable
 			if (player == null || this.getDistanceToEntity(player) > 64 || player.isSneaking() || this.posY < 5)
 			{
 				this.setDead();
+				return;
 			}
 			double xDif = this.posX - player.posX;
 			double yDif = this.posY - player.posY + 1.8;
