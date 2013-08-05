@@ -21,7 +21,7 @@ import net.minecraftforge.common.EnumHelper;
 
 public class ItemHelper 
 {
-	public static Item dimensionTraveler;
+//	public static Item dimensionTraveler;
 	public static Item grappleHook;
 	
 	public static Item boneHelm;
@@ -84,7 +84,7 @@ public class ItemHelper
 	
 	public static void initNames()
 	{
-		LanguageRegistry.addName(dimensionTraveler, "Dimension Traveler");
+//		LanguageRegistry.addName(dimensionTraveler, "Dimension Traveler");
 		LanguageRegistry.addName(grappleHook, "Grapple Hook Launcher");
 		
 		LanguageRegistry.addName(boneHelm, "Bone Helmet");
