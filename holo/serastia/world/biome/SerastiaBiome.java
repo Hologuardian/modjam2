@@ -13,5 +13,6 @@ public class SerastiaBiome extends BiomeGenBase
 		this.spawnableMonsterList.clear();
 		this.spawnableWaterCreatureList.clear();
 		this.setMinMaxHeight(-2.5F, 0.5F);
+		this.rainfall = 0.0F;
 	}
 }

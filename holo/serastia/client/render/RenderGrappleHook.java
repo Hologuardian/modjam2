@@ -25,7 +25,7 @@ public class RenderGrappleHook extends Render
     /**
      * Actually renders the fishing line and hook
      */
-    public void doRenderFishHook(EntityHook entity, double par2, double par4, double par6, float par8, float par9)
+    public void doRenderGrappleHook(EntityHook entity, double par2, double par4, double par6, float par8, float par9)
     {
         GL11.glPushMatrix();
         GL11.glTranslatef((float)par2, (float)par4, (float)par6);
@@ -120,6 +120,6 @@ public class RenderGrappleHook extends Render
      */
     public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.doRenderFishHook((EntityHook)par1Entity, par2, par4, par6, par8, par9);
+        this.doRenderGrappleHook((EntityHook)par1Entity, par2, par4, par6, par8, par9);
     }
 }

@@ -48,7 +48,7 @@ public class EntityHook extends EntityThrowable
 			this.moveEntities(player, entityHit, 1.0F);
 			this.moveEntities(entityHit, this, 1.0F);
 
-			if (entityHit.getDistanceToEntity(player) < 0.5)
+			if (entityHit.getDistanceToEntity(player) < 2)
 			{
 				this.setDead();
 				return;
@@ -98,7 +98,7 @@ public class EntityHook extends EntityThrowable
 		List<Entity> entityList = world.loadedEntityList;
 		for(Entity entity : entityList)
 		{
-			if(this.getDistanceToEntity(entity) < entDist && !(entity instanceof EntityHook) && entity != this.getThrower())
+			if(this.getDistanceToEntity(entity) < entDist && !(entity instanceof EntityHook) && entity != this.getThrower() && !(entity instanceof EntityPlayer))
 			{
 				retEnt = entity;
 				entDist = this.getDistanceToEntity(entity);

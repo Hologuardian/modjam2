@@ -1,5 +1,6 @@
 package holo.serastia.world;
 
+import holo.serastia.helper.BlockHelper;
 import holo.serastia.world.feature.*;
 
 import java.util.Arrays;
@@ -551,7 +552,7 @@ public class SerastiaChunkProvider implements IChunkProvider
         	j = worldObj.getTopSolidOrLiquidBlock(i, k);
         	if (j < 70)
         	{
-            	worldObj.setBlock(i, j, k, Block.brick.blockID, 0, 3);
+            	worldObj.setBlock(i, j, k, BlockHelper.blockAirFlower.blockID, 0, 3);
         	}
         }
         

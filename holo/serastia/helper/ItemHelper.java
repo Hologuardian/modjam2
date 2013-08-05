@@ -49,7 +49,7 @@ public class ItemHelper
 	public static void init()
 	{
 		dimensionTraveler = new ItemDimensionTraveler(ConfigHelper.dimensionTravelerID);
-		grappleHook = new ItemGrappleHook(ConfigHelper.grappleHookID);
+		grappleHook = new ItemGrappleHook(ConfigHelper.grappleHookID).setFull3D();
 		
 		boneHelm = new ItemBoneArmor(ConfigHelper.boneHelmID, EnumArmorMaterial.IRON, 0, 0, 0.85D, 500, "BoneHelm");
 		boneChest = new ItemBoneArmor(ConfigHelper.boneChestID, EnumArmorMaterial.IRON, 0, 1, 0.85D, 500, "BoneChest");

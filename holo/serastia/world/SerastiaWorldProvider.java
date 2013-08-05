@@ -2,6 +2,7 @@ package holo.serastia.world;
 
 import holo.serastia.helper.ConfigHelper;
 import holo.serastia.helper.DimensionHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.WorldChunkManagerHell;
@@ -18,6 +19,12 @@ public class SerastiaWorldProvider extends WorldProvider
     {
         this.worldChunkMgr = new WorldChunkManagerHell(DimensionHelper.serastiaBiome, 0.9F, 0.7F);
         this.dimensionId = ConfigHelper.serastiaDimensionID;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public Vec3 getSkyColor(Entity cameraEntity, float partialTicks)
+    {
+        return this.worldObj.getWorldVec3Pool().getVecFromPool(0.894D, 0.607D, 1.0D);
     }
 
     /**

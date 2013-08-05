@@ -1,191 +1,152 @@
 package holo.serastia.entity.mob;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackOnCollide;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityBaracuda extends EntityMob
 {
-	public Entity target = null;
+        private ChunkCoordinates currentFlightTarget;
+        private int flyTimer;
 
-	public EntityBaracuda(World par1World) 
-	{
-		super(par1World);
-		this.getNavigator().setCanSwim(false);
-	}
+        public EntityBaracuda(World var1)
+        {
+                super(var1);
+                this.getNavigator().setAvoidsWater(true);
+                this.tasks.addTask(1, new EntityAISwimming(this));
+                this.tasks.addTask(5, new EntityAIAttackOnCollide(this, 1.0D, true));
+                this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 32.0F));
+                this.tasks.addTask(9, new EntityAILookIdle(this));
+                this.tasks.addTask(6, new EntityAIWander(this, 1.0D));
+                this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+                this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
+                this.flyTimer = 0;
+        }
 
-	public boolean canBreatheUnderwater()
-	{
-		return true;
-	}
+        protected void func_110147_ax()
+        {
+            super.func_110147_ax();
+            this.func_110148_a(SharedMonsterAttributes.field_111265_b).func_111128_a(40.0D);
+            this.func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.56D);
+            this.func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(3.0D);
+        }
 
-	/**
-	 * Checks if the entity's current position is a valid location to spawn this entity.
-	 */
-	public boolean getCanSpawnHere()
-	{
-		return this.worldObj.checkNoEntityCollision(this.boundingBox);
-	}
-
-	/**
-	 * Takes a coordinate in and returns a weight to determine how likely this creature will try to path to the block.
-	 * Args: x, y, z
-	 */
-	public float getBlockPathWeight(int par1, int par2, int par3)
-	{
-		return this.worldObj.getBlockMaterial(par1, par2, par3) != Material.water ? 0 : 0.5F - this.worldObj.getLightBrightness(par1, par2, par3);
-	}
-
-	public void onLivingUpdate()
-	{
-		super.onLivingUpdate();
-		this.target = this.findPlayerToAttack();
-
-		if (this.target != null)
-		{
-			this.getNavigator().tryMoveToEntityLiving(target, 0.5F);
-		}
-	}
-
+        /**
+         * Returns true if the newer Entity AI code should be run
+         */
+        protected boolean isAIEnabled()
+        {
+                return true;
+        }
+        
     /**
-     * Takes in the distance the entity has fallen this tick and whether its on the ground to update the fall distance
-     * and deal fall damage if landing on the ground.  Args: distanceFallenThisTick, onGround
+     * Checks to make sure the light is not too bright where the mob is spawning
      */
-    protected void updateFallState(double par1, boolean par3)
-    {}
+    @Override
+    protected boolean isValidLightLevel()
+    {
+        return true;
+    }
 
-    /**
-     * Called when the mob is falling. Calculates and applies fall damage.
-     */
-    protected void fall(float par1)
-    {}
+        /**
+         * Gets the pitch of living sounds in living entities.
+         */
+        protected float getSoundPitch()
+        {
+                return super.getSoundPitch() * 0.95F;
+        }
 
-	/**
-	 * Moves the entity based on the specified heading.  Args: strafe, forward
-	 */
-	public void moveEntityWithHeading(float par1, float par2)
-	{
-		double d0;
-		float f2 = 0.91F;
+        /**
+         * Called to update the entity's position/logic.
+         */
+        public void onUpdate()
+        {
+                super.onUpdate();
+                this.motionY *= 0.6000000238418579D;
+        }
 
-		if (this.onGround)
-		{
-			f2 = 0.54600006F;
-			int i = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
+        protected void updateAITasks()
+        {
+                super.updateAITasks();
 
-			if (i > 0)
-			{
-				f2 = Block.blocksList[i].slipperiness * 0.91F;
-			}
-		}
+                if (this.getAttackTarget() != null)
+                {
+                        int var1 = (int) this.getAttackTarget().posX;
+                        int var2 = (int) this.getAttackTarget().posY;
+                        int var3 = (int) this.getAttackTarget().posZ;
+                        this.currentFlightTarget = new ChunkCoordinates(var1, var2, var3);
+                }
+                else if (this.flyTimer != 0)
+                {
+                        this.flyTimer = 120;
+                        this.currentFlightTarget = new ChunkCoordinates((int)(this.posX + this.rand.nextInt(16)) - 8, (int)(this.posY + this.rand.nextInt(32)) - 16, (int)(this.posZ + this.rand.nextInt(16)) - 8);
+                }
+                
+                if (this.currentFlightTarget != null)
+                {
+                        double var1 = (double)this.currentFlightTarget.posX - this.posX;
+                        double var3 = (double)this.currentFlightTarget.posY - this.posY;
+                        double var5 = (double)this.currentFlightTarget.posZ - this.posZ;
 
-		float f3 = 0.16277136F / (f2 * f2 * f2);
-		float f4;
+                        if (Math.signum(var1) != 0 || Math.signum(var3) != 0 || Math.signum(var5) != 0)
+                        {
+                                this.motionX += (Math.signum(var1) * 0.15D - this.motionX) * 0.06D;
+                                this.motionY += (Math.signum(var3) * 1.7D - this.motionY) * 0.06D;
+                                this.motionZ += (Math.signum(var5) * 0.15D - this.motionZ) * 0.06D;
+                                float var7 = (float)(Math.atan2(this.motionZ, this.motionX) * 180.0D / Math.PI) - 90.0F;
+                                float var8 = MathHelper.wrapAngleTo180_float(var7 - this.rotationYaw);
+                                this.moveForward = 0.5F;
+                                this.rotationYaw += var8;
+                        }
+                        flyTimer--;
+                }
 
-		if (this.onGround)
-		{
-			f4 = this.getAIMoveSpeed() * f3;
-		}
-		else
-		{
-			f4 = this.jumpMovementFactor;
-		}
+        }
 
-		this.moveFlying(par1, par2, f4);
-		f2 = 0.91F;
+        /**
+         * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
+         * prevent them from trampling crops
+         */
+         protected boolean canTriggerWalking()
+        {
+                 return false;
+        }
 
-		if (this.onGround)
-		{
-			f2 = 0.54600006F;
-			int j = this.worldObj.getBlockId(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.boundingBox.minY) - 1, MathHelper.floor_double(this.posZ));
+        /**
+         * Called when the mob is falling. Calculates and applies fall damage.
+         */
+         protected void fall(float par1) {}
 
-			if (j > 0)
-			{
-				f2 = Block.blocksList[j].slipperiness * 0.91F;
-			}
-		}
+         /**
+          * Takes in the distance the entity has fallen this tick and whether its on the ground to update the fall distance
+          * and deal fall damage if landing on the ground.  Args: distanceFallenThisTick, onGround
+          */
+         protected void updateFallState(double par1, boolean par3) {}
 
-		if (this.isOnLadder())
-		{
-			float f5 = 0.15F;
+         /**
+          * Return whether this entity should NOT trigger a pressure plate or a tripwire.
+          */
+         public boolean doesEntityNotTriggerPressurePlate()
+         {
+                 return true;
+         }
 
-			if (this.motionX < (double)(-f5))
-			{
-				this.motionX = (double)(-f5);
-			}
-
-			if (this.motionX > (double)f5)
-			{
-				this.motionX = (double)f5;
-			}
-
-			if (this.motionZ < (double)(-f5))
-			{
-				this.motionZ = (double)(-f5);
-			}
-
-			if (this.motionZ > (double)f5)
-			{
-				this.motionZ = (double)f5;
-			}
-
-			this.fallDistance = 0.0F;
-
-			if (this.motionY < -0.15D)
-			{
-				this.motionY = -0.15D;
-			}
-
-			boolean flag = this.isSneaking();
-
-			if (flag && this.motionY < 0.0D)
-			{
-				this.motionY = 0.0D;
-			}
-		}
-
-		this.moveEntity(this.motionX, this.motionY, this.motionZ);
-
-		if (this.isCollidedHorizontally && this.isOnLadder())
-		{
-			this.motionY = 0.2D;
-		}
-
-		if (this.worldObj.isRemote && (!this.worldObj.blockExists((int)this.posX, 0, (int)this.posZ) || !this.worldObj.getChunkFromBlockCoords((int)this.posX, (int)this.posZ).isChunkLoaded))
-		{
-			if (this.posY > 0.0D)
-			{
-				this.motionY = -0.1D;
-			}
-			else
-			{
-				this.motionY = 0.0D;
-			}
-		}
-		else
-		{
-			this.motionY -= 0.08D;
-		}
-
-		this.motionY *= 0.9800000190734863D;
-		this.motionX *= (double)f2;
-		this.motionZ *= (double)f2;
-
-		this.prevLimbYaw = this.limbYaw;
-		d0 = this.posX - this.prevPosX;
-		double d1 = this.posZ - this.prevPosZ;
-		float f6 = MathHelper.sqrt_double(d0 * d0 + d1 * d1) * 4.0F;
-
-		if (f6 > 1.0F)
-		{
-			f6 = 1.0F;
-		}
-
-		this.limbYaw += (f6 - this.limbYaw) * 0.4F;
-		this.limbSwing += this.limbYaw;
-	}
+         /**
+          * Called by a player entity when they collide with an entity
+          */
+         public void onCollideWithPlayer(EntityPlayer player) 
+         {
+        	 this.attackEntityAsMob(player);
+         }
 }

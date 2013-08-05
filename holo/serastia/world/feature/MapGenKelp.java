@@ -1,5 +1,7 @@
 package holo.serastia.world.feature;
 
+import holo.serastia.helper.BlockHelper;
+
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -15,7 +17,7 @@ public class MapGenKelp extends WorldGenerator
 		int height = random.nextInt(5) + 5;
 		for(int i = y; i < y + height && i < 70; ++i)
 		{
-			world.setBlock(x, i, z, Block.bedrock.blockID, 0, 2);
+			world.setBlock(x, i, z, BlockHelper.blockKelp.blockID, 0, 2);
 		}
 		return false;
 	}

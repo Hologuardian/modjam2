@@ -36,6 +36,7 @@ public class ConfigHelper
 	public static int boneFragmentID;
 	
 	public static int kelpBlockID;
+	public static int airFlowerBlockID;
 	
 	public static void init(Configuration config)
 	{
@@ -83,6 +84,7 @@ public class ConfigHelper
 	{
 		int blockID = 3200;
 		kelpBlockID = config.getBlock("Kelp", ++blockID).getInt();
+		airFlowerBlockID = config.getBlock("Air Flower", ++blockID).getInt();
 	}
 	
 	public static void initEntities(Configuration config)

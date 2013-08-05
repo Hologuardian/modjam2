@@ -17,7 +17,7 @@ public class ItemGrappleHook extends Item
     public ItemGrappleHook(int par1)
     {
         super(par1);
-        this.maxStackSize = 16;
+        this.maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabMisc);
     }
 
