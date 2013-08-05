@@ -1,0 +1,18 @@
+[
+{
+  "modid": "Serastia",
+  "name": "Serastia",
+  "description": "A dimensional mod for Modjam2!",
+  "version": "1.0",
+  "updateUrl": "",
+  "authorList": [
+    "Hologuard"
+  ],
+  "credits": "By Hologuardian",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]

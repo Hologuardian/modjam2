@@ -49,7 +49,7 @@ public class ItemHelper
 	
 	public static void init()
 	{
-		dimensionTraveler = new ItemDimensionTraveler(ConfigHelper.dimensionTravelerID).setUnlocalizedName("Dimension Traveler");
+//		dimensionTraveler = new ItemDimensionTraveler(ConfigHelper.dimensionTravelerID).setUnlocalizedName("Dimension Traveler");
 		grappleHook = new ItemGrappleHook(ConfigHelper.grappleHookID).setFull3D().setUnlocalizedName("Grapple Hook");
 		
 		boneHelm = new ItemBoneArmor(ConfigHelper.boneHelmID, EnumArmorMaterial.IRON, 0, 0, 0.85D, 500, "BoneHelm").setUnlocalizedName("Bone Helmet");
