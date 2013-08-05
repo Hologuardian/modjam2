@@ -11,7 +11,19 @@ public class ConfigHelper
 	public static int dimensionTravelerID;
 	public static int grappleHookID;
 	
-
+	public static int boneHelmID;
+	public static int boneChestID;
+	public static int boneLegsID;
+	public static int boneBootsID;
+	
+	public static int chitinousHelmID;
+	public static int chitinousChestID;
+	public static int chitinousLegsID;
+	public static int chitinousBootsID;
+	
+	public static int chitinFragmentID;
+	public static int boneFragmentID;
+	
 	public static int kelpBlockID;
 	
 	public static void init(Configuration config)
@@ -30,6 +42,19 @@ public class ConfigHelper
 		int itemID = 5500;
 		dimensionTravelerID = config.getItem("Dimension Traveler", ++itemID).getInt();
 		grappleHookID = config.getItem("Grapple Hook", ++itemID).getInt();
+
+		boneHelmID = config.getItem("Bone Helmet", ++itemID).getInt();
+		boneChestID = config.getItem("Bone Chestplate", ++itemID).getInt();
+		boneLegsID = config.getItem("Bone Leggings", ++itemID).getInt();
+		boneBootsID = config.getItem("Bone Boots", ++itemID).getInt();
+		
+		chitinousHelmID = config.getItem("Chitinous Helmet", ++itemID).getInt();
+		chitinousChestID = config.getItem("Chitinous Chestplate", ++itemID).getInt();
+		chitinousLegsID = config.getItem("Chitinous Leggings", ++itemID).getInt();
+		chitinousBootsID = config.getItem("Chitinous Boots", ++itemID).getInt();
+		
+		chitinFragmentID = config.getItem("Chitin Fragment", ++itemID).getInt();
+		boneFragmentID = config.getItem("Bone Fragment", ++itemID).getInt();
 	}
 	
 	public static void initBlocks(Configuration config)

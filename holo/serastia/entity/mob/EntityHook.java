@@ -1,5 +1,7 @@
 package holo.serastia.entity.mob;
 
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,7 +13,9 @@ import net.minecraft.world.World;
 public class EntityHook extends EntityThrowable
 {
 	public EntityLivingBase thrower = null;
-	public boolean hasCollided = false;
+	public Entity entityHit = null;
+	public boolean hasCollided;
+	private boolean hasEntityCollided;
 	public EntityHook(World par1World) 
 	{
 		super(par1World);
@@ -33,63 +37,100 @@ public class EntityHook extends EntityThrowable
 			this.setDead();
 		}
 		thrower = player;
-
 		if (this.hasCollided)
 		{
-			if (player == null || this.getDistanceToEntity(player) > 64 || player.isSneaking() || this.posY < 5)
+			this.moveEntities(this, player, 1.0F);
+		}
+		else if (this.hasEntityCollided)
+		{
+			entityHit = this.getClosestEntity(this.worldObj);
+
+			this.moveEntities(player, entityHit, 1.0F);
+			this.moveEntities(entityHit, this, 1.0F);
+
+			if (entityHit.getDistanceToEntity(player) < 0.5)
 			{
 				this.setDead();
 				return;
 			}
-			double xDif = this.posX - player.posX;
-			double yDif = this.posY - player.posY + 1.8;
-			double zDif = this.posZ - player.posZ;
-
-			if (Math.abs(xDif) < 0.3)
-				xDif = 0;
-			if (Math.abs(yDif) < 0.3)
-				yDif = 0;
-			if (Math.abs(zDif) < 0.3)
-				zDif = 0;
-
-			double xV = Math.signum(xDif) * 0.10;
-			double yV = Math.signum(yDif) * 0.15;
-			double zV = Math.signum(zDif) * 0.10;
-
-			player.fallDistance = 0;
-			player.addVelocity(xV, yV, zV);
 		}
 	}
 
 	/**
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
-	 protected void onImpact(MovingObjectPosition pos)
+	protected void onImpact(MovingObjectPosition pos)
 	{
-		if (pos.entityHit == null)
+		if (pos.entityHit == null && !this.hasEntityCollided)
 		{
 			if (this.worldObj.getBlockId(pos.blockX, pos.blockY, pos.blockZ) != 0)
 			{
 				this.hasCollided = true;
-
-				for (int i = 0; i < 8; ++i)
-				{
-					this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
-				}
 
 				this.motionX = 0;
 				this.motionY = 0;
 				this.motionZ = 0;
 			}
 		}
+		else if(pos.entityHit != this.getThrower())
+		{
+			this.entityHit = pos.entityHit;
+			this.hasCollided = false;
+			this.hasEntityCollided = true;
+			this.motionX = 0;
+			this.motionY = 0;
+			this.motionZ = 0;
+		}
 	}
 
-	 /**
-	  * Gets the amount of gravity to apply to the thrown entity with each tick.
-	  */
-	 protected float getGravityVelocity()
-	 {
-		 return this.hasCollided ? 0 : 0.03F;
-	 }
+	/**
+	 * Gets the amount of gravity to apply to the thrown entity with each tick.
+	 */
+	protected float getGravityVelocity()
+	{
+		return this.hasCollided || this.hasEntityCollided   ? 0 : 0.03F;
+	}
 
+	public Entity getClosestEntity(World world)
+	{
+		Entity retEnt = null;
+		float entDist = Float.MAX_VALUE;
+		List<Entity> entityList = world.loadedEntityList;
+		for(Entity entity : entityList)
+		{
+			if(this.getDistanceToEntity(entity) < entDist && !(entity instanceof EntityHook) && entity != this.getThrower())
+			{
+				retEnt = entity;
+				entDist = this.getDistanceToEntity(entity);
+			}
+		}
+
+		return retEnt;
+	}
+
+	public void moveEntities(Entity target, Entity moving, float speed)
+	{
+		if (target == null || moving == null)
+		{
+			this.setDead();
+			return;
+		}
+		double xDif = target.posX - moving.posX;
+		double yDif = target.posY - moving.posY + moving.height;
+		double zDif = target.posZ - moving.posZ;
+
+		if (Math.abs(xDif) < (moving.width) * speed)
+			xDif = 0;
+		if (Math.abs(yDif) < 0.1 * speed)
+			yDif = 0;
+		if (Math.abs(zDif) < (moving.width) * speed)
+			zDif = 0;
+
+		double xV = Math.signum(xDif) * 0.10 * speed;
+		double yV = Math.signum(yDif) * 0.15 * speed;
+		double zV = Math.signum(zDif) * 0.10 * speed;
+
+		moving.fallDistance = 0;
+		moving.addVelocity(xV, yV, zV);
+	}
 }
