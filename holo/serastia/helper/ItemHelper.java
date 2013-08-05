@@ -61,13 +61,13 @@ public class ItemHelper
 		
 		boneSword = new ItemBoneSword(ConfigHelper.boneSwordID, bone);
 		boneShovel = new ItemBoneShovel(ConfigHelper.boneShovelID, bone, "BoneShovel");
-		bonePickaxe = new ItemBonePick(ConfigHelper.boneSwordID, bone, "BonePickaxe");
-		boneAxe = new ItemBoneAxe(ConfigHelper.boneSwordID, bone, "BoneAxe");
+		bonePickaxe = new ItemBonePick(ConfigHelper.bonePickaxeID, bone, "BonePick");
+		boneAxe = new ItemBoneAxe(ConfigHelper.boneAxeID, bone, "BoneAxe");
 		
 		chitinousSword = new ItemChitinousSword(ConfigHelper.chitinousSwordID, chitin);
 		chitinousShovel = new ItemChitinShovel(ConfigHelper.chitinousShovelID, chitin, "ChitinousShovel");
-		chitinousPickaxe = new ItemChitinPick(ConfigHelper.chitinousSwordID, chitin, "ChitinousPickaxe");
-		chitinousAxe = new ItemChitinAxe(ConfigHelper.chitinousSwordID, chitin, "ChitinousAxe");
+		chitinousPickaxe = new ItemChitinPick(ConfigHelper.chitinousPickaxeID, chitin, "ChitinousPick");
+		chitinousAxe = new ItemChitinAxe(ConfigHelper.chitinousAxeID, chitin, "ChitinousAxe");
 		
 		chitinousHelm = new ItemChitinousArmor(ConfigHelper.chitinousHelmID, EnumArmorMaterial.IRON, 0, 0, 0.95D, -1, "ChitinousHelm");
 		chitinousChest = new ItemChitinousArmor(ConfigHelper.chitinousChestID, EnumArmorMaterial.IRON, 0, 1, 0.95D, -1, "ChitinousChest");

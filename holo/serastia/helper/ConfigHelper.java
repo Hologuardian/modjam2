@@ -76,6 +76,7 @@ public class ConfigHelper
 		
 		chitinFragmentID = config.getItem("Chitin Fragment", ++itemID).getInt();
 		boneFragmentID = config.getItem("Bone Fragment", ++itemID).getInt();
+		System.out.println("Frag: " + boneFragmentID + " Frag2: " + chitinFragmentID + " BoneSword: " + boneSwordID + " BonePick: " + bonePickaxeID);
 	}
 	
 	public static void initBlocks(Configuration config)

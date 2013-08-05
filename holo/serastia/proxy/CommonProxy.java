@@ -1,5 +1,6 @@
 package holo.serastia.proxy;
 
+import holo.serastia.helper.BlockHelper;
 import holo.serastia.helper.ConfigHelper;
 import holo.serastia.helper.DimensionHelper;
 import holo.serastia.helper.EntityHelper;
@@ -20,6 +21,7 @@ public class CommonProxy
 	public void init()
 	{
 		ItemHelper.init();
+		BlockHelper.init();
 		DimensionHelper.init();
 		EntityHelper.init();
 		RecipeHelper.init();
