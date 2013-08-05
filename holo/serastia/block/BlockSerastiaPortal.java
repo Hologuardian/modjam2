@@ -1,5 +1,6 @@
 package holo.serastia.block;
 
+import holo.serastia.helper.BlockHelper;
 import holo.serastia.helper.ConfigHelper;
 import holo.serastia.teleporter.SerastiaTeleporter;
 import holo.serastia.util.Utils;
@@ -157,7 +158,7 @@ public class BlockSerastiaPortal extends BlockBreakable
                                 return false;
                             }
                         }
-                        else if (!isAirBlock && j1 != Block.waterStill.blockID)
+                        else if (!isAirBlock && j1 != BlockHelper.blockGlowPowder.blockID)
                         {
                             return false;
                         }
@@ -169,7 +170,7 @@ public class BlockSerastiaPortal extends BlockBreakable
             {
                 for (i1 = 0; i1 < 3; ++i1)
                 {
-                    par1World.setBlock(par2 + b0 * l, par3 + i1, par4 + b1 * l, Block.portal.blockID, 0, 2);
+                    par1World.setBlock(par2 + b0 * l, par3 + i1, par4 + b1 * l, BlockHelper.blockSerastiaPortal.blockID, 0, 2);
                 }
             }
 

@@ -38,6 +38,7 @@ public class ConfigHelper
 	public static int kelpBlockID;
 	public static int airFlowerBlockID;
 	public static int serastiaPortalBlockID;
+	public static int blockGlowPowderID;
 	
 	public static void init(Configuration config)
 	{
@@ -87,6 +88,7 @@ public class ConfigHelper
 		kelpBlockID = config.getBlock("Kelp", ++blockID).getInt();
 		airFlowerBlockID = config.getBlock("Air Flower", ++blockID).getInt();
 		serastiaPortalBlockID = config.getBlock("Serastia Portal Block", ++blockID).getInt();
+		blockGlowPowderID = config.getBlock("Glow Powder", ++blockID).getInt();
 	}
 	
 	public static void initEntities(Configuration config)

@@ -4,19 +4,21 @@ import holo.serastia.util.Utils;
 
 import java.util.List;
 
-import org.bouncycastle.util.Strings;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
+
+import org.bouncycastle.util.Strings;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemChitinousArmor extends ItemSerastiaArmor
 {
@@ -58,9 +60,18 @@ public class ItemChitinousArmor extends ItemSerastiaArmor
 		if (entity instanceof EntityPlayer)
 		{
 			EntityPlayer player = (EntityPlayer)entity;
-			if (source.equals(DamageSource.fall) && this.wearingFullSet(player))
+			if ((source.equals(DamageSource.fall) || source.equals(DamageSource.magic)) && this.wearingFullSet(player))
 			{
 				return;
+			}
+			
+			if (source instanceof EntityDamageSource && this.wearingFullSet(player))
+			{
+				EntityDamageSource s = (EntityDamageSource) source;
+				if (s.getSourceOfDamage() instanceof EntityLivingBase)
+				{
+					((EntityLivingBase)s.getSourceOfDamage()).addPotionEffect(new PotionEffect(Potion.poison.id, 40, 3));
+				}
 			}
 		}
 		super.damageArmor(entity, stack, source, damage, slot);
@@ -93,6 +104,8 @@ public class ItemChitinousArmor extends ItemSerastiaArmor
     {
         super.addInformation(stack, player, list, par4);
         list.add("Full set: No fall damage");
+        list.add("Full set: Poison Attackers");
+        list.add("Full set: Magic immunity");
     }
 
 }
