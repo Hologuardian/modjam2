@@ -100,7 +100,7 @@ public class MapGenWaterTree extends WorldGenerator
                                     if (block == null || block.canBeReplacedByLeaves(par1World, l1, i2, k2)
                                             || block.blockID ==  Block.waterStill.blockID || block.blockID ==  Block.waterMoving.blockID)
                                     {
-                                        this.setBlockAndMetadata(par1World, l1, i2, k2, Block.glowStone.blockID, 0);
+                                    	par1World.setBlock(l1, i2, k2, Block.glowStone.blockID, 0, 3);
                                     }
                                 }
                             }

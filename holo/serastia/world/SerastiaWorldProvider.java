@@ -21,12 +21,6 @@ public class SerastiaWorldProvider extends WorldProvider
         this.dimensionId = ConfigHelper.serastiaDimensionID;
     }
 
-    @SideOnly(Side.CLIENT)
-    public Vec3 getSkyColor(Entity cameraEntity, float partialTicks)
-    {
-        return this.worldObj.getWorldVec3Pool().getVecFromPool(0.894D, 0.607D, 1.0D);
-    }
-
     /**
      * Returns a new chunk provider which generates chunks for this world
      */

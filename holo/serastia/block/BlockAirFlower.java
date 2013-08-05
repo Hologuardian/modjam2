@@ -22,7 +22,7 @@ public class BlockAirFlower extends Block
 	public BlockAirFlower(int par1, Material par2Material) 
 	{
 		super(par1, par2Material);
-		this.setCreativeTab(CreativeTabs.tabMisc);
+		this.setCreativeTab(CreativeTabs.tabDecorations);
 	}
 
     /**

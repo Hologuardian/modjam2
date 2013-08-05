@@ -136,7 +136,7 @@ public class ModelBaracuda extends ModelBase
 
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, EntityBaracuda entity)
 	{
-		if (entity.getAITarget() != null)
+		if (entity.openJaw)
 			setRotation(Jaw, 0.35F, 0F, 0F);
 		else
 			setRotation(Jaw, 0.0F, 0F, 0F);

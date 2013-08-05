@@ -59,6 +59,6 @@ public class ItemBoneArmor extends ItemSerastiaArmor
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
         super.addInformation(stack, player, list, par4);
-        list.add("On hit: Deal 1 damage to attacker (per piece)");
+        list.add("On hit: Returns 1 damage per piece worn");
     }
 }

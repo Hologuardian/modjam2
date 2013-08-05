@@ -114,7 +114,7 @@ public class MapGenLargeTree extends WorldGenerator
 
 				            if (tileentitymobspawner != null)
 				            {
-				                tileentitymobspawner.getSpawnerLogic().setMobID(DungeonHooks.getRandomDungeonMob(rand));
+				                tileentitymobspawner.getSpawnerLogic().setMobID("Skeratik");
 				            }
 				            else
 				            {
