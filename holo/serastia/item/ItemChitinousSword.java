@@ -34,7 +34,7 @@ public class ItemChitinousSword extends ItemSword
     @SideOnly(Side.CLIENT)
     protected String func_111208_A()
     {
-        return Strings.toLowerCase(Utils.MAIN_MOD_ID) + ":BoneSword";
+        return Strings.toLowerCase(Utils.MAIN_MOD_ID) + ":ChitinousSword";
     }
     
     @Override

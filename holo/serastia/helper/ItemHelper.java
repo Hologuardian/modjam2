@@ -1,12 +1,22 @@
 package holo.serastia.helper;
 
 import holo.serastia.item.ItemBoneArmor;
+import holo.serastia.item.ItemBoneAxe;
+import holo.serastia.item.ItemBonePick;
+import holo.serastia.item.ItemBoneShovel;
+import holo.serastia.item.ItemBoneSword;
+import holo.serastia.item.ItemChitinAxe;
+import holo.serastia.item.ItemChitinPick;
+import holo.serastia.item.ItemChitinShovel;
 import holo.serastia.item.ItemChitinousArmor;
+import holo.serastia.item.ItemChitinousSword;
 import holo.serastia.item.ItemDimensionTraveler;
 import holo.serastia.item.ItemGrappleHook;
 import holo.serastia.item.SerastiaItemMisc;
 import net.minecraft.item.EnumArmorMaterial;
+import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.EnumHelper;
 
 public class ItemHelper 
 {
@@ -45,7 +55,20 @@ public class ItemHelper
 		boneChest = new ItemBoneArmor(ConfigHelper.boneChestID, EnumArmorMaterial.IRON, 0, 1, 0.85D, 500, "BoneChest");
 		boneLegs = new ItemBoneArmor(ConfigHelper.boneLegsID, EnumArmorMaterial.IRON, 0, 2, 0.85D, 500, "BoneLegs");
 		boneBoots = new ItemBoneArmor(ConfigHelper.boneBootsID, EnumArmorMaterial.IRON, 0, 3, 0.85D, 500, "BoneBoots");
-
+		
+		EnumToolMaterial bone = EnumHelper.addToolMaterial("Bone", 3, 364, 4, 13, 22);
+		EnumToolMaterial chitin = EnumHelper.addToolMaterial("Chitin", 4, 896, 7, 19, 42);
+		
+		boneSword = new ItemBoneSword(ConfigHelper.boneSwordID, bone);
+		boneShovel = new ItemBoneShovel(ConfigHelper.boneShovelID, bone, "BoneShovel");
+		bonePickaxe = new ItemBonePick(ConfigHelper.boneSwordID, bone, "BonePickaxe");
+		boneAxe = new ItemBoneAxe(ConfigHelper.boneSwordID, bone, "BoneAxe");
+		
+		chitinousSword = new ItemChitinousSword(ConfigHelper.chitinousSwordID, chitin);
+		chitinousShovel = new ItemChitinShovel(ConfigHelper.chitinousShovelID, chitin, "ChitinousShovel");
+		chitinousPickaxe = new ItemChitinPick(ConfigHelper.chitinousSwordID, chitin, "ChitinousPickaxe");
+		chitinousAxe = new ItemChitinAxe(ConfigHelper.chitinousSwordID, chitin, "ChitinousAxe");
+		
 		chitinousHelm = new ItemChitinousArmor(ConfigHelper.chitinousHelmID, EnumArmorMaterial.IRON, 0, 0, 0.95D, -1, "ChitinousHelm");
 		chitinousChest = new ItemChitinousArmor(ConfigHelper.chitinousChestID, EnumArmorMaterial.IRON, 0, 1, 0.95D, -1, "ChitinousChest");
 		chitinousLegs = new ItemChitinousArmor(ConfigHelper.chitinousLegsID, EnumArmorMaterial.IRON, 0, 2, 0.95D, -1, "ChitinousLegs");
