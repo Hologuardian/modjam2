@@ -29,5 +29,6 @@ public class RecipeHelper
 		 GameRegistry.addRecipe(new ItemStack(ItemHelper.chitinousBoots, 1), new Object[] { "y y", "y y", 'y',  ItemHelper.chitinFragment});
 
 		 GameRegistry.addRecipe(new ItemStack(BlockHelper.blockGlowPowder, 1), new Object[] { "yxy", "xyx", "yxy", 'y',  Item.redstone, 'x', Item.glowstone});
+		 GameRegistry.addRecipe(new ItemStack(ItemHelper.grappleHook, 1), new Object[] { " yx", "yzy", "yzy", 'y',  ItemHelper.chitinFragment, 'x', Item.ingotIron, 'z', Item.silk});
 	}
 }
