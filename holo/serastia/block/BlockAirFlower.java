@@ -58,11 +58,11 @@ public class BlockAirFlower extends Block
     	world.setBlockToAir(x, y, z);
     	this.breakBlock(world, x, y, z, 3, world.getBlockMetadata(x, y, z));
     	player.setAir(300);
-        for (int var3 = 0; var3 < 30; ++var3)
-        {
-            EntityBubbleFX FX = new EntityBubbleFX(world, x + player.getRNG().nextFloat() * 3 - 1, y + player.getRNG().nextFloat() * 2, z + player.getRNG().nextFloat() * 3 - 1, player.getRNG().nextFloat() * 0.25, player.getRNG().nextFloat() * 0.25, player.getRNG().nextFloat() * 0.25);
-            FMLClientHandler.instance().getClient().effectRenderer.addEffect(FX);
-        }
+//        for (int var3 = 0; var3 < 30; ++var3)
+//        {
+//            EntityBubbleFX FX = new EntityBubbleFX(world, x + player.getRNG().nextFloat() * 3 - 1, y + player.getRNG().nextFloat() * 2, z + player.getRNG().nextFloat() * 3 - 1, player.getRNG().nextFloat() * 0.25, player.getRNG().nextFloat() * 0.25, player.getRNG().nextFloat() * 0.25);
+//            FMLClientHandler.instance().getClient().effectRenderer.addEffect(FX);
+//        }
     	return true;
     }
     
